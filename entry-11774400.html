@@ -5,55 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>日本一周28日目@山形｜さみしんの旅日記</title>
     <style>
-        /* ===== 共通スタイル ===== */
-        body { background-color: #eaf4e7; color: #333; font-family: "ヒラギノ角ゴ Pro W3", sans-serif; font-size: 14px; margin: 0; }
+        /* ===== アメブロ風リセット＆ベース ===== */
+        body { margin: 0; padding: 0; background-color: #eaf4e7; color: #333; font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif; font-size: 14px; line-height: 1.6; }
+        ul, ol { list-style: none; margin: 0; padding: 0; }
         a { color: #2cb696; text-decoration: none; }
         a:hover { text-decoration: underline; }
-        .service-bar { background: #333; color: #fff; padding: 8px 0; text-align: right; font-size: 12px; }
-        .blog-container { width: 980px; margin: 0 auto; }
-        .blog-header { height: 180px; background: #fff; border-bottom: 5px solid #2cb696; margin-bottom: 20px; position: relative; }
-        .blog-title { position: absolute; top: 60px; left: 30px; font-size: 28px; font-weight: bold; }
-        .main-column { width: 660px; background: #fff; padding: 30px; border: 1px solid #ddd; margin: 0 auto; }
-        .entry-title { font-size: 20px; font-weight: bold; color: #2cb696; border-bottom: 1px dotted #ccc; padding-bottom: 5px; margin-bottom: 20px; }
-        .entry-date { font-size: 12px; color: #999; margin-bottom: 5px; }
-        .status-box { background: #f9f9f9; border: 1px dashed #2cb696; padding: 15px; margin-bottom: 25px; font-size: 13px; }
         
-        /* コメント欄スタイル */
-        .comment-area { margin-top: 50px; border-top: 1px solid #ddd; padding-top: 20px; }
-        .comment-header { font-size: 16px; font-weight: bold; color: #2cb696; margin-bottom: 15px; }
-        .comment-item { margin-bottom: 20px; border-bottom: 1px dashed #eee; padding-bottom: 15px; font-size: 13px; }
-        .comment-meta { color: #666; font-size: 12px; margin-bottom: 5px; font-weight: bold; }
-        .comment-date { font-weight: normal; color: #999; margin-left: 10px; }
-        .comment-body { line-height: 1.5; white-space: pre-wrap; } /* 改行を反映 */
-        .author-owner { color: #2cb696; } /* 管理者の名前色 */
+        /* ===== レイアウト ===== */
+        .skinFrame { width: 980px; margin: 0 auto; background: transparent; }
+        
+        /* ヘッダー */
+        .skinHeader { height: 200px; background-color: #ffffff; border-bottom: 5px solid #2cb696; position: relative; margin-bottom: 20px; }
+        .skinTitleArea { position: absolute; top: 80px; left: 40px; }
+        .skinTitle { font-size: 26px; font-weight: bold; color: #333; display: block; }
+        .skinDescription { font-size: 12px; color: #999; margin-top: 5px; display: block; }
+        
+        /* コンテンツエリア（2カラム） */
+        .skinContentsArea { overflow: hidden; }
+        .skinMainArea { float: left; width: 660px; background: #ffffff; padding: 20px; border: 1px solid #ddd; margin-bottom: 20px; }
+        .skinSubA { float: right; width: 280px; }
+        
+        /* ===== 記事部分 ===== */
+        .skinArticle { margin-bottom: 40px; }
+        .skinArticleHeader { border-bottom: 1px dotted #ccc; margin-bottom: 15px; padding-bottom: 10px; }
+        .skinArticleTitle { font-size: 20px; font-weight: bold; color: #2cb696; }
+        .skinArticleDate { font-size: 11px; color: #999; display: block; margin-bottom: 5px; }
+        .skinArticleBody { font-size: 14px; line-height: 1.8; }
+        
+        /* ステータスボックス（ブログパーツ風） */
+        .status-box { background: #f9f9f9; border: 1px dashed #2cb696; padding: 15px; margin: 15px 0; font-size: 13px; }
 
-        /* 記事リストスタイル */
-        .recent-entries { margin-top: 40px; background-color: #f9f9f9; padding: 15px; border: 1px solid #eee; }
-        .recent-entries h3 { font-size: 14px; margin: 0 0 10px 0; font-weight: bold; border-left: 4px solid #333; padding-left: 8px; }
-        .recent-entries ul { list-style: none; padding: 0; margin: 0; }
-        .recent-entries li { padding: 5px 0; border-bottom: 1px dotted #ccc; font-size: 12px; }
-        .restricted { color: red !important; font-weight: bold; }
+        /* ===== サイドバー ===== */
+        .skinMenu { background: #fff; margin-bottom: 20px; border: 1px solid #ddd; padding: 10px; }
+        .skinMenuHeader { background: #f0f0f0; padding: 8px; font-weight: bold; font-size: 13px; color: #333; margin-bottom: 10px; border-left: 5px solid #2cb696; }
+        .skinMenuBody ul li { padding: 6px 0; border-bottom: 1px dotted #ccc; font-size: 12px; }
+        .skinMenuBody ul li:last-child { border-bottom: none; }
+        
+        /* プロフィール画像 */
+        .profile-img { width: 100%; height: auto; background: #eee; display: block; margin-bottom: 10px; text-align: center; padding: 20px 0; color: #aaa; }
+        
+        /* ===== コメント欄 ===== */
+        .commentArea { margin-top: 50px; border-top: 2px solid #2cb696; padding-top: 20px; }
+        .commentHeader { font-size: 18px; font-weight: bold; margin-bottom: 20px; color: #333; }
+        .commentItem { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dotted #ccc; }
+        .commentTitle { font-weight: bold; font-size: 13px; margin-bottom: 5px; }
+        .commentMeta { font-size: 10px; color: #999; margin-bottom: 10px; }
+        .commentBody { font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
+        .owner-res { color: #2cb696; } /* 管理者の名前 */
+        
+        /* 閲覧注意リンク */
+        .restricted-link { color: red !important; font-weight: bold; background: #fff0f0; display: block; }
+
+        /* フッター */
+        .footer { clear: both; text-align: center; padding: 20px; color: #999; font-size: 11px; }
     </style>
 </head>
 <body>
-    <div class="service-bar"><span style="margin-right:20px;">Blog</span></div>
-    <div class="blog-container">
-        <header class="blog-header">
-            <div class="blog-title">さみしんの旅日記</div>
-        </header>
-        <div class="main-column">
-            <div class="entry-date">2014年02月16日 22:15:00</div>
-            <h1 class="entry-title">日本一周28日目@山形</h1>
-            
-            <div class="status-box">
-                <b>きょうのさみしん</b><br>
-                現在地：山形県山形市<br>
-                天気：大雪（マジで終わってる）
-            </div>
 
-            <p>こんばんは！さみしんです！(・∀・)</p>
-     <p>はい、動き取れません。雪ヤバすぎです。<br>
-                        山形なめてました。愛車のクロスバイクがただの鉄屑と化してます。</p>
+<div class="skinFrame">
+    <header class="skinHeader">
+        <div class="skinTitleArea">
+            <a href="#" class="skinTitle">さみしんの旅日記</a>
+            <span class="skinDescription">大学3年生。自転車で日本一周を目指すブログです。現在東北編！</span>
+        </div>
+    </header>
+
+    <div class="skinContentsArea">
+        <div class="skinMainArea">
+            <article class="skinArticle">
+                <div class="skinArticleHeader">
+                    <span class="skinArticleDate">2014-02-16 22:15:00</span>
+                    <h1 class="skinArticleTitle">日本一周28日目@山形</h1>
+                </div>
+
+                <div class="skinArticleBody">
+                    <div class="status-box">
+                        <b>きょうのさみしん</b><br>
+                        現在地：山形県山形市<br>
+                        天気：大雪（マジで終わってる）
+                    </div>
+
+                    <p>こんばんは！さみしんです！(・∀・)</p>
+ <p>はい、動き取れません。雪ヤバすぎです。<br>
+                        山形なめてました。愛車がただの鉄屑と化してます。</p>
                         
                         <p>今日は一日中、停滞を余儀なくされたので、七日町の居酒屋でちびちびやってたんですが、そこで隣の席のおじいちゃん（「しょうじ」さん）と意気投合しちゃいまして。</p>
                         
@@ -107,21 +141,31 @@
                         おやすみなさいzzz</p>
 
 
-            <div class="comment-area">
-                <div class="comment-header">コメント</div>
-                
-                <div class="comment-item">
-                    <div class="comment-meta">1. 無題 <span style="margin-left:10px;">ume</span><span class="comment-date">2014-02-17 12:12:35</span></div>
-                    <div class="comment-body">はじめまして。 記事を拝見しました、「しょうじ」の娘のumeと申します。
+                    <br><br>
+                </div>
+            </article>
+
+            <div class="commentArea">
+                <div class="commentHeader">コメント</div>
+
+                <div class="commentItem">
+                    <div class="commentTitle">1. 無題</div>
+                    <div class="commentMeta">
+                        ume &nbsp; 2014-02-17 12:12:35
+                    </div>
+                    <div class="commentBody">はじめまして。 記事を拝見しました、「しょうじ」の娘のumeと申します。
 
 父がお店でご迷惑をおかけしたようで、大変申し訳ありません＞＜ 父はだいぶ酔っていたみたいで、あることないこと喋ってしまったようです……。 「ままづぁま」の話も、父の妄想や、昔の民話が混ざったただの与太話ですので、 あまり本気にしないでくださいね（汗）
 
 恥ずかしいので、できれば忘れていただけると嬉しいです（笑）</div>
                 </div>
 
-                <div class="comment-item">
-                    <div class="comment-meta">2. Re:無題 <span class="author-owner" style="margin-left:10px;">さみしん</span><span class="comment-date">2014-02-18 23:45:10</span></div>
-                    <div class="comment-body">＞umeさん コメントありがとうございます！
+                <div class="commentItem">
+                    <div class="commentTitle">2. Re:無題</div>
+                    <div class="commentMeta">
+                        <span class="owner-res">さみしん</span> &nbsp; 2014-02-18 23:45:10
+                    </div>
+                    <div class="commentBody">＞umeさん コメントありがとうございます！
 
 お父さん、確かにすごく酔っていらっしゃいましたね。ときどき誰もいない方向に話しかけていました……（笑） 
 
@@ -130,25 +174,67 @@
 実はもう何泊かする予定なので、もしよかったらお詫びなんて気にせずに、今度もう一度お会いして詳しいお話を伺えませんか？ ぜひお願いします！</div>
                 </div>
 
-                <div class="comment-item">
-                    <div class="comment-meta">3. Re: Re: 無題 <span style="margin-left:10px;">ume</span><span class="comment-date">2014-02-19 10:12:35</span></div>
-                    <div class="comment-body">こちらこそぜひ！
+                <div class="commentItem">
+                    <div class="commentTitle">3. Re: Re: 無題</div>
+                    <div class="commentMeta">
+                        ume &nbsp; 2014-02-19 10:12:35
+                    </div>
+                    <div class="commentBody">こちらこそぜひ！
 
 今晩、同じ店でお会いしましょう。</div>
                 </div>
             </div>
+        </div>
 
-            <div class="recent-entries">
-                <h3>最新の記事</h3>
-                <ul>
-                    <li><a href="entry-11775592.html" class="restricted">【限定公開】ままだま汁について »</a></li>
-                    <li><a href="#">日本一周28日目@山形</a></li>
-                    <li><a href="#">日本一周27日目@山形</a></li>
-                    <li><a href="#">日本一周26日目@宮城</a></li>
-                    <li><a href="#">日本一周25日目@宮城</a></li>
-                </ul>
+        <div class="skinSubA">
+            <div class="skinMenu">
+                <div class="skinMenuHeader">プロフィール</div>
+                <div class="skinMenuBody" style="text-align:center;">
+                    <div style="background:#ccc; width:100px; height:100px; margin:0 auto 10px auto; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff;">No Image</div>
+                    <p style="font-weight:bold; font-size:14px;">さみしん</p>
+                    <p style="font-size:12px; margin-top:5px;">自己紹介：<br>大学生です。<br>バイクで日本一周中。</p>
+                </div>
             </div>
+
+            <div class="skinMenu">
+                <div class="skinMenuHeader">最新の記事</div>
+                <div class="skinMenuBody">
+                    <ul>
+                        <li><a href="entry-11775592.html" class="restricted-link">【限定公開】ままだま汁について »</a></li>
+                        <li><a href="#">日本一周28日目@山形</a></li>
+                        <li><a href="#">日本一周27日目@山形</a></li>
+                        <li><a href="#">日本一周26日目@宮城</a></li>
+                        <li><a href="#">日本一周25日目@宮城</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="skinMenu">
+                <div class="skinMenuHeader">アーカイブ</div>
+                <div class="skinMenuBody">
+                    <ul>
+                        <li><a href="#">2014年02月 (4)</a></li>
+                        <li><a href="#">2014年01月 (12)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="skinMenu">
+                <div class="skinMenuHeader">読者登録</div>
+                <div class="skinMenuBody">
+                    <p style="font-size:11px; color:#666;">読者になるとブログの更新情報が届きます。</p>
+                    <button style="width:100%; margin-top:5px; padding:5px;">登録する</button>
+                </div>
+            </div>
+
         </div>
     </div>
+    
+    <div class="footer">
+        Copyright &copy; さみしんの旅日記 All Rights Reserved.
+    </div>
+</div>
+
 </body>
 </html>
+
