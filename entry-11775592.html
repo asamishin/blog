@@ -3,68 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>限定公開記事｜さみしんの旅日記</title>
+    <title>【限定公開】昨日の記事について｜さみしんの旅日記</title>
     <style>
-        /* ===== 共通スタイル ===== */
-        body { background-color: #eaf4e7; color: #333; font-family: "ヒラギノ角ゴ Pro W3", sans-serif; font-size: 14px; margin: 0; }
+        /* ===== アメブロ風リセット＆ベース（共通） ===== */
+        body { margin: 0; padding: 0; background-color: #eaf4e7; color: #333; font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif; font-size: 14px; line-height: 1.6; }
+        ul, ol { list-style: none; margin: 0; padding: 0; }
         a { color: #2cb696; text-decoration: none; }
-        .service-bar { background: #333; color: #fff; padding: 8px 0; text-align: right; font-size: 12px; }
-        .blog-container { width: 980px; margin: 0 auto; }
-        .blog-header { height: 180px; background: #fff; border-bottom: 5px solid #2cb696; margin-bottom: 20px; position: relative; }
-        .blog-title { position: absolute; top: 60px; left: 30px; font-size: 28px; font-weight: bold; }
-        .main-column { width: 660px; background: #fff; padding: 30px; border: 1px solid #ddd; margin: 0 auto; }
-        /* 認証画面 */
-        .login-box { background: #f9f9f9; border: 1px solid #ccc; padding: 30px; margin: 50px auto; width: 400px; text-align: center; }
-        .login-title { background: #2cb696; color: #fff; padding: 10px; font-weight: bold; margin: -30px -30px 20px -30px; text-align: left; }
-        input { width: 90%; padding: 10px; margin-bottom: 10px; }
-        button { background: #2cb696; color: #fff; border: none; padding: 10px 30px; font-weight: bold; cursor: pointer; }
-        .error-msg { color: red; display: none; margin-top: 10px; font-size: 12px; }
+        a:hover { text-decoration: underline; }
+        img { max-width: 100%; height: auto; }
+        
+        /* ===== レイアウト（共通） ===== */
+        .skinFrame { width: 100%; max-width: 980px; margin: 0 auto; background: transparent; }
+        .skinHeader { height: 200px; background-color: #ffffff; border-bottom: 5px solid #2cb696; position: relative; margin-bottom: 20px; }
+        .skinTitleArea { position: absolute; top: 80px; left: 40px; }
+        .skinTitle { font-size: 26px; font-weight: bold; color: #333; display: block; }
+        .skinDescription { font-size: 12px; color: #999; margin-top: 5px; display: block; }
+        
+        .skinContentsArea { display: flex; justify-content: space-between; align-items: flex-start; }
+        .skinMainArea { width: 660px; background: #ffffff; padding: 20px; border: 1px solid #ddd; margin-bottom: 20px; box-sizing: border-box; }
+        .skinSubA { width: 300px; box-sizing: border-box; }
+        
+        /* ===== 記事部分 ===== */
+        .skinArticle { margin-bottom: 20px; }
+        .skinArticleHeader { border-bottom: 1px dotted #ccc; margin-bottom: 15px; padding-bottom: 10px; }
+        .skinArticleTitle { font-size: 20px; font-weight: bold; color: #2cb696; }
+        .skinArticleDate { font-size: 11px; color: #999; display: block; margin-bottom: 5px; }
+        .skinArticleBody { font-size: 14px; line-height: 1.8; }
+
+        /* ===== パスワードフォームのデザイン ===== */
+        .password-lock {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 30px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .password-lock p { margin-bottom: 15px; font-weight: bold; }
+        .password-input {
+            padding: 10px;
+            font-size: 16px;
+            width: 60%;
+            max-width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .password-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #2cb696;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .password-btn:hover { background: #239b80; }
+        .password-hint {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        .error-msg {
+            color: red;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* 隠しコンテンツ（最初は非表示） */
+        #secretContent { display: none; }
+
+        /* サイドバー共通 */
+        .skinMenu { background: #fff; margin-bottom: 20px; border: 1px solid #ddd; padding: 10px; }
+        .skinMenuHeader { background: #f0f0f0; padding: 8px; font-weight: bold; font-size: 13px; color: #333; margin-bottom: 10px; border-left: 5px solid #2cb696; }
+        .skinMenuBody ul li { padding: 6px 0; border-bottom: 1px dotted #ccc; font-size: 12px; }
+        .skinMenuBody ul li:last-child { border-bottom: none; }
+        
+        /* カレンダー */
+        .calendarTable { width: 100%; border-collapse: collapse; font-size: 11px; text-align: center; }
+        .calendarTable th { color: #2cb696; padding: 5px 0; }
+        .calendarTable td { padding: 5px 0; color: #ccc; }
+        .calendarTable td a { font-weight: bold; display: block; width: 100%; height: 100%; color: #333; text-decoration: underline; }
+        .calendarCaption { font-size: 12px; font-weight: bold; margin-bottom: 5px; text-align: center; }
+
+        .footer { clear: both; text-align: center; padding: 20px; color: #999; font-size: 11px; }
+        
+        /* 閲覧注意リンク */
+        .restricted-link { color: red !important; font-weight: bold; background: #fff0f0; display: block; }
+
+        /* スマホ対応 */
+        @media screen and (max-width: 768px) {
+            .skinFrame { width: 100%; }
+            .skinHeader { height: auto; padding: 20px; }
+            .skinTitleArea { position: static; margin-bottom: 10px; }
+            .skinTitle { font-size: 20px; }
+            .skinContentsArea { display: block; }
+            .skinMainArea { width: 100%; margin-bottom: 20px; }
+            .skinSubA { width: 100%; padding: 0 10px; box-sizing: border-box;}
+        }
     </style>
 </head>
 <body>
-    <div class="service-bar"><span style="margin-right:20px;">Blog</span></div>
-    <div class="blog-container">
-        <header class="blog-header">
-            <div class="blog-title">さみしんの旅日記</div>
-        </header>
 
-        <div class="main-column">
-            <div id="login-view" class="login-box">
-                <div class="login-title">限定公開記事</div>
-                <p style="font-size:12px; text-align:left;">この記事は閲覧制限がかかっています。<br>合言葉を入力してください。</p>
-                <input type="text" id="passInput" placeholder="合言葉">
-                <br>
-                <button onclick="unlockContent()">読む</button>
-                <div class="error-msg" id="errorMsg">合言葉が違います</div>
-                <div style="margin-top:20px; font-size:12px;">
-                    <a href="entry-11774400.html">&laquo; 一覧へ戻る</a>
+<div class="skinFrame">
+    <header class="skinHeader">
+        <div class="skinTitleArea">
+            <a href="index.html" class="skinTitle">さみしんの旅日記</a>
+            <span class="skinDescription">大学3年生。バイクで日本一周を目指すブログです。現在東北編！</span>
+        </div>
+    </header>
+
+    <div class="skinContentsArea">
+        <div class="skinMainArea">
+            <article class="skinArticle">
+                <div class="skinArticleHeader">
+                    <span class="skinArticleDate">2014-02-17 19:00:00</span>
+                    <h1 class="skinArticleTitle">【限定公開】昨日の記事について</h1>
+                </div>
+
+                <div class="skinArticleBody">
+                    
+                    <div id="passwordArea" class="password-lock">
+                        <p>このページは限定公開記事です。<br>閲覧するには合言葉を入力してください。</p>
+                        <input type="text" id="passInput" class="password-input" placeholder="">
+                        <button onclick="checkPassword()" class="password-btn">送信</button>
+                        <div class="password-hint">合言葉は実家の飼い犬の名前（ローマ字表記）</div>
+                        <div id="errorMsg" class="error-msg">合言葉が間違っています。</div>
+                    </div>
+
+                    <div id="secretContent">
+                        <p>（ここに認証後の本文が表示されます）</p>
+                        <p>例：昨日の記事、削除しました。コメント欄で教えてもらったのですが……</p>
+
+                        </div>
+
+                </div>
+            </article>
+        </div>
+
+        <div class="skinSubA">
+            <div class="skinMenu">
+                <div class="skinMenuHeader">プロフィール</div>
+                <div class="skinMenuBody" style="text-align:center;">
+                    <div style="background:#ccc; width:100px; height:100px; margin:0 auto 10px auto; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff;">No Image</div>
+                    <p style="font-weight:bold; font-size:14px;">さみしん</p>
+                    <p style="font-size:12px; margin-top:5px;">自己紹介：<br>大学生です。<br>バイクで日本一周中。</p>
                 </div>
             </div>
 
-            <div id="secret-content" style="display:none;"></div>
+            <div class="skinMenu">
+                <div class="skinMenuHeader">カレンダー</div>
+                <div class="skinMenuBody">
+                    <div class="calendarCaption">2014年02月</div>
+                    <table class="calendarTable">
+                        <tr>
+                            <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+                        </tr>
+                        <tr>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td><a href="#">1</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">2</a></td><td><a href="#">3</a></td><td><a href="#">4</a></td><td><a href="#">5</a></td><td><a href="#">6</a></td><td><a href="#">7</a></td><td><a href="#">8</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">9</a></td><td><a href="#">10</a></td><td><a href="#">11</a></td><td><a href="#">12</a></td><td><a href="#">13</a></td><td><a href="#">14</a></td><td><a href="#">15</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">16</a></td><td><a href="entry-11775592.html">17</a></td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td>
+                        </tr>
+                        <tr>
+                            <td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="skinMenu">
+                <div class="skinMenuHeader">最新の記事</div>
+                <div class="skinMenuBody">
+                    <ul>
+                        <li><a href="entry-11775592.html" class="restricted-link">【限定公開】昨日の記事について »</a></li>
+                        <li><a href="index.html">日本一周28日目@山形</a></li>
+                        <li><a href="#">日本一周27日目@山形</a></li>
+                        <li><a href="#">日本一周26日目@宮城</a></li>
+                        <li><a href="#">日本一周25日目@宮城</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+    
+    <div class="footer">
+        Copyright &copy; さみしんの旅日記 All Rights Reserved.
+    </div>
+</div>
 
-    <script>
-        async function unlockContent() {
-            var input = document.getElementById("passInput").value;
-            var errorMsg = document.getElementById("errorMsg");
-            if(!input) return;
+<script>
+    function checkPassword() {
+        var input = document.getElementById('passInput').value;
+        var errorMsg = document.getElementById('errorMsg');
+        var passArea = document.getElementById('passwordArea');
+        var secret = document.getElementById('secretContent');
 
-            // パスワードに対応するファイルを探す
-            var targetFile = input + ".html"; 
-
-            try {
-                const response = await fetch(targetFile);
-                if (response.ok) {
-                    const text = await response.text();
-                    document.getElementById("login-view").style.display = "none";
-                    var contentDiv = document.getElementById("secret-content");
-                    contentDiv.innerHTML = text;
-                    contentDiv.style.display = "block";
-                } else { throw new Error(); }
-            } catch (e) { errorMsg.style.display = "block"; }
+        // 合言葉の設定（momo）
+        if (input === 'momo') {
+            // 正解の場合：フォームを消して記事を表示
+            passArea.style.display = 'none';
+            secret.style.display = 'block';
+        } else {
+            // 不正解の場合：エラーメッセージを表示
+            errorMsg.style.display = 'block';
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
