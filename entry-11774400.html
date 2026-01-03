@@ -10,30 +10,83 @@
         ul, ol { list-style: none; margin: 0; padding: 0; }
         a { color: #2cb696; text-decoration: none; }
         a:hover { text-decoration: underline; }
+        img { max-width: 100%; height: auto; } /* 画像のはみ出し防止 */
         
-        /* ===== レイアウト ===== */
-        .skinFrame { width: 980px; margin: 0 auto; background: transparent; }
+        /* ===== レイアウト（Flexbox化で修正） ===== */
+        .skinFrame { 
+            width: 100%; 
+            max-width: 980px; 
+            margin: 0 auto; 
+            background: transparent; 
+        }
         
         /* ヘッダー */
-        .skinHeader { height: 200px; background-color: #ffffff; border-bottom: 5px solid #2cb696; position: relative; margin-bottom: 20px; }
-        .skinTitleArea { position: absolute; top: 80px; left: 40px; }
+        .skinHeader { 
+            height: 200px; 
+            background-color: #ffffff; 
+            border-bottom: 5px solid #2cb696; 
+            position: relative; 
+            margin-bottom: 20px; 
+        }
+        .skinTitleArea { 
+            position: absolute; 
+            top: 80px; 
+            left: 40px; 
+        }
         .skinTitle { font-size: 26px; font-weight: bold; color: #333; display: block; }
         .skinDescription { font-size: 12px; color: #999; margin-top: 5px; display: block; }
         
-        /* コンテンツエリア（2カラム） */
-        .skinContentsArea { overflow: hidden; }
-        .skinMainArea { float: left; width: 660px; background: #ffffff; padding: 20px; border: 1px solid #ddd; margin-bottom: 20px; }
-        .skinSubA { float: right; width: 280px; }
+        /* コンテンツエリア（Flexboxで左右配置） */
+        .skinContentsArea { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start;
+        }
+
+        .skinMainArea { 
+            width: 660px; /* PC用固定幅 */
+            background: #ffffff; 
+            padding: 20px; 
+            border: 1px solid #ddd; 
+            margin-bottom: 20px; 
+            box-sizing: border-box; /* paddingを含めた幅計算 */
+        }
+
+        .skinSubA { 
+            width: 300px; /* PC用固定幅 */
+            box-sizing: border-box;
+        }
         
         /* ===== 記事部分 ===== */
-        .skinArticle { margin-bottom: 40px; }
+        .skinArticle { margin-bottom: 20px; }
         .skinArticleHeader { border-bottom: 1px dotted #ccc; margin-bottom: 15px; padding-bottom: 10px; }
         .skinArticleTitle { font-size: 20px; font-weight: bold; color: #2cb696; }
         .skinArticleDate { font-size: 11px; color: #999; display: block; margin-bottom: 5px; }
         .skinArticleBody { font-size: 14px; line-height: 1.8; }
         
-        /* ステータスボックス（ブログパーツ風） */
+        /* ステータスボックス */
         .status-box { background: #f9f9f9; border: 1px dashed #2cb696; padding: 15px; margin: 15px 0; font-size: 13px; }
+
+        /* ===== ページャー（次の記事へ） ===== */
+        .pagingArea {
+            margin: 30px 0;
+            text-align: right;
+        }
+        .pagingArea a {
+            display: inline-block;
+            background: #fff;
+            border: 1px solid #2cb696;
+            color: #2cb696;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .pagingArea a:hover {
+            background: #2cb696;
+            color: #fff;
+        }
 
         /* ===== サイドバー ===== */
         .skinMenu { background: #fff; margin-bottom: 20px; border: 1px solid #ddd; padding: 10px; }
@@ -41,23 +94,46 @@
         .skinMenuBody ul li { padding: 6px 0; border-bottom: 1px dotted #ccc; font-size: 12px; }
         .skinMenuBody ul li:last-child { border-bottom: none; }
         
-        /* プロフィール画像 */
-        .profile-img { width: 100%; height: auto; background: #eee; display: block; margin-bottom: 10px; text-align: center; padding: 20px 0; color: #aaa; }
-        
+        /* カレンダー用スタイル */
+        .calendarTable { width: 100%; border-collapse: collapse; font-size: 11px; text-align: center; }
+        .calendarTable th { color: #2cb696; padding: 5px 0; }
+        .calendarTable td { padding: 5px 0; color: #ccc; } /* 記事がない日は薄く */
+        .calendarTable td a { font-weight: bold; display: block; width: 100%; height: 100%; color: #333; text-decoration: underline; }
+        .calendarCaption { font-size: 12px; font-weight: bold; margin-bottom: 5px; text-align: center; }
+
         /* ===== コメント欄 ===== */
-        .commentArea { margin-top: 50px; border-top: 2px solid #2cb696; padding-top: 20px; }
+        .commentArea { margin-top: 30px; border-top: 2px solid #2cb696; padding-top: 20px; }
         .commentHeader { font-size: 18px; font-weight: bold; margin-bottom: 20px; color: #333; }
         .commentItem { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dotted #ccc; }
         .commentTitle { font-weight: bold; font-size: 13px; margin-bottom: 5px; }
         .commentMeta { font-size: 10px; color: #999; margin-bottom: 10px; }
         .commentBody { font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
-        .owner-res { color: #2cb696; } /* 管理者の名前 */
+        .owner-res { color: #2cb696; }
         
         /* 閲覧注意リンク */
         .restricted-link { color: red !important; font-weight: bold; background: #fff0f0; display: block; }
 
         /* フッター */
         .footer { clear: both; text-align: center; padding: 20px; color: #999; font-size: 11px; }
+
+        /* ===== スマホ対応（レスポンシブ） ===== */
+        @media screen and (max-width: 768px) {
+            .skinFrame { width: 100%; }
+            
+            /* ヘッダー調整 */
+            .skinHeader { height: auto; padding: 20px; }
+            .skinTitleArea { position: static; margin-bottom: 10px; }
+            .skinTitle { font-size: 20px; }
+            
+            /* カラム落ち（縦並び） */
+            .skinContentsArea { display: block; }
+            .skinMainArea { width: 100%; margin-bottom: 20px; border-left: none; border-right: none; }
+            .skinSubA { width: 100%; padding: 0 10px; box-sizing: border-box;}
+            
+            /* その他調整 */
+            .pagingArea { text-align: center; }
+            .pagingArea a { width: 100%; box-sizing: border-box; }
+        }
     </style>
 </head>
 <body>
@@ -66,7 +142,7 @@
     <header class="skinHeader">
         <div class="skinTitleArea">
             <a href="#" class="skinTitle">さみしんの旅日記</a>
-            <span class="skinDescription">大学3年生。自転車で日本一周を目指すブログです。現在東北編！</span>
+            <span class="skinDescription">大学3年生。バイクで日本一周を目指すブログです。現在東北編！</span>
         </div>
     </header>
 
@@ -86,64 +162,70 @@
                     </div>
 
                     <p>こんばんは！さみしんです！(・∀・)</p>
- <p>はい、動き取れません。雪ヤバすぎです。<br>
-                        山形なめてました。愛車がただの鉄屑と化してます。</p>
+                    <p>はい、動き取れません。雪ヤバすぎです。<br>
+                    山形なめてました。愛車がただの鉄屑と化してます。</p>
                         
-                        <p>今日は一日中、停滞を余儀なくされたので、七日町の居酒屋でちびちびやってたんですが、そこで隣の席のおじいちゃん（「しょうじ」さん）と意気投合しちゃいまして。</p>
+                    <p>今日は一日中、停滞を余儀なくされたので、七日町の居酒屋でちびちびやってたんですが、そこで隣の席のおじいちゃん（「しょうじ」さん）と意気投合しちゃいまして。</p>
                         
-                        <p>そこで、昔この辺にあった「倉尾沢村」っていう廃村の話を聞いたんです。</p>
+                    <p>そこで、昔この辺にあった「倉尾沢村」っていう廃村の話を聞いたんです。</p>
                         
-                        <p>その名も<strong>「ままづぁま」</strong>っていう風習の話。</p>
+                    <p>その名も<strong>「ままづぁま」</strong>っていう風習の話。</p>
                         
-                        <p>最初は「昔は口減らしで人を食ってた」なんて言うから、よくある怪談かよ～ってビビってたんですが、最後まで聞くとこれが意外と深い、感動話だったんでシェアしますね。</p>
-                        <br>
+                    <p>最初は「昔は口減らしで人を食ってた」なんて言うから、よくある怪談かよ～ってビビってたんですが、最後まで聞くとこれが意外と深い、感動話だったんでシェアしますね。</p>
+                    <br>
                         
-                        <p>かつて、その村は冬になると完全に孤立して、餓死者がでるような過酷な場所だったそうです。<br>
-                        そこで当時の村長さんは、村を存続させるために「死んだ人間の肉を食う」という苦渋の決断をしました。</p>
+                    <p>かつて、その村は冬になると完全に孤立して、餓死者がでるような過酷な場所だったそうです。<br>
+                    そこで当時の村長さんは、村を存続させるために「死んだ人間の肉を食う」という苦渋の決断をしました。</p>
                         
-                        <p>でも、ここからがすごいんです。<br>
-                        村長さんは「人食いの罪」を村人全員に背負わせるわけにはいかないと、あるルールを作りました。</p>
+                    <p>でも、ここからがすごいんです。<br>
+                    村長さんは「人食いの罪」を村人全員に背負わせるわけにはいかないと、あるルールを作りました。</p>
                         
-                        <p>① 人肉を食べるのは、汚れ役である「村長の一族」だけ。<br>
-                        ② その代わり、村長の家にあった備蓄食料（穀物とか）はすべて村人に配る。</p>
+                    <p>① 人肉を食べるのは、汚れ役である「村長の一族」だけ。<br>
+                    ② その代わり、村長の家にあった備蓄食料（穀物とか）はすべて村人に配る。</p>
                         
-                        <p>つまり、自分たちだけが地獄に落ちて、村人を救おうとしたわけです。<br>
-                        マジで聖人すぎませんか？(´；ω；｀)</p>
-                        <br>
+                    <p>つまり、自分たちだけが地獄に落ちて、村人を救おうとしたわけです。<br>
+                    マジで聖人すぎませんか？(´；ω；｀)</p>
+                    <br>
 
-                        <p>で、それを受けた村人たちも黙ってなかった。<br>
-                        「村長だけに罪を背負わせるわけにはいかない」<br>
-                        「せめて心だけでも寄り添おう」<br>
-                        として、ある儀式を始めたんだそうです。</p>
+                    <p>で、それを受けた村人たちも黙ってなかった。<br>
+                    「村長だけに罪を背負わせるわけにはいかない」<br>
+                    「せめて心だけでも寄り添おう」<br>
+                    として、ある儀式を始めたんだそうです。</p>
                         
-                        <p>それは、<br>
-                        <strong>「村長が人肉を料理するのと『全く同じ手順・味付け』で、自分たちも獣の肉を食べる」</strong><br>
-                        というもの。</p>
+                    <p>それは、<br>
+                    <strong>「村長が人肉を料理するのと『全く同じ手順・味付け』で、自分たちも獣の肉を食べる」</strong><br>
+                    というもの。</p>
                         
-                        <p>村長が味噌で焼いて食うなら、村人も鹿や猪を味噌焼きにして食う。<br>
-                        村長が汁物を作って食うなら、村人も同じ味付けの狸汁を食う。</p>
+                    <p>村長が味噌で焼いて食うなら、村人も鹿や猪を味噌焼きにして食う。<br>
+                    村長が汁物を作って食うなら、村人も同じ味付けの狸汁を食う。</p>
                         
-                        <p>そうやって、村人たちも人肉食を形だけ真似することで、精神的な連帯を示したんだとか。</p>
+                    <p>そうやって、村人たちも人肉食を形だけ真似することで、精神的な連帯を示したんだとか。</p>
                         
-                        <p>その時に「ままづぁま（飯様）、ままづぁま（飯様）」って唱えながら食べたのが、この風習の由来だそうです。</p>
-                        <br>
+                    <p>その時に「ままづぁま（飯様）、ままづぁま（飯様）」って唱えながら食べたのが、この風習の由来だそうです。</p>
+                    <br>
 
-                        <p>カニバリズムって聞くと引くけど、極限状態での人間の絆というか、愛？みたいなものを感じて、ちょっと居酒屋でウルっときちゃいました。<br>
-                        旅先でこういうディープな民話聞けるのって、日本一周の醍醐味ですよね。</p>
+                    <p>カニバリズムって聞くと引くけど、極限状態での人間の絆というか、愛？みたいなものを感じて、ちょっと居酒屋でウルっときちゃいました。<br>
+                    旅先でこういうディープな民話聞けるのって、日本一周の醍醐味ですよね。</p>
                         
-                        <p>ちなみにその村は、大正時代に疫病で滅んじゃったらしいです。<br>
-                        悲しみ・・・</p>
-                        <br>
+                    <p>ちなみにその村は、大正時代に疫病で滅んじゃったらしいです。<br>
+                    悲しみ・・・</p>
+                    <br>
 
-                        <p>しょうじさん、貴重なお酒と話、ごちそうさまでした！</p>
+                    <p>しょうじさん、貴重なお酒と話、ごちそうさまでした！</p>
                         
-                        <p>それでは、明日は晴れることを祈って。<br>
-                        おやすみなさいzzz</p>
-
+                    <p>それでは、明日は晴れることを祈って。<br>
+                    おやすみなさいzzz</p>
 
                     <br><br>
                 </div>
             </article>
+
+            <div class="pagingArea">
+                <a href="entry-11775592.html">
+                    次の記事を読む &raquo;<br>
+                    <span style="font-size:12px; font-weight:normal;">【限定公開】昨日の記事について</span>
+                </a>
+            </div>
 
             <div class="commentArea">
                 <div class="commentHeader">コメント</div>
@@ -197,24 +279,41 @@
             </div>
 
             <div class="skinMenu">
-                <div class="skinMenuHeader">最新の記事</div>
+                <div class="skinMenuHeader">カレンダー</div>
                 <div class="skinMenuBody">
-                    <ul>
-                        <li><a href="entry-11775592.html" class="restricted-link">【限定公開】ままだま汁について »</a></li>
-                        <li><a href="#">日本一周28日目@山形</a></li>
-                        <li><a href="#">日本一周27日目@山形</a></li>
-                        <li><a href="#">日本一周26日目@宮城</a></li>
-                        <li><a href="#">日本一周25日目@宮城</a></li>
-                    </ul>
+                    <div class="calendarCaption">2014年02月</div>
+                    <table class="calendarTable">
+                        <tr>
+                            <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+                        </tr>
+                        <tr>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td><a href="#">1</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">2</a></td><td><a href="#">3</a></td><td><a href="#">4</a></td><td><a href="#">5</a></td><td><a href="#">6</a></td><td><a href="#">7</a></td><td><a href="#">8</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">9</a></td><td><a href="#">10</a></td><td><a href="#">11</a></td><td><a href="#">12</a></td><td><a href="#">13</a></td><td><a href="#">14</a></td><td><a href="#">15</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">16</a></td><td><a href="entry-11775592.html">17</a></td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td>
+                        </tr>
+                        <tr>
+                            <td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
             <div class="skinMenu">
-                <div class="skinMenuHeader">アーカイブ</div>
+                <div class="skinMenuHeader">最新の記事</div>
                 <div class="skinMenuBody">
                     <ul>
-                        <li><a href="#">2014年02月 (4)</a></li>
-                        <li><a href="#">2014年01月 (12)</a></li>
+                        <li><a href="entry-11775592.html" class="restricted-link">【限定公開】昨日の記事について »</a></li>
+                        <li><a href="#">日本一周28日目@山形</a></li>
+                        <li><a href="#">日本一周27日目@山形</a></li>
+                        <li><a href="#">日本一周26日目@宮城</a></li>
+                        <li><a href="#">日本一周25日目@宮城</a></li>
                     </ul>
                 </div>
             </div>
@@ -237,4 +336,3 @@
 
 </body>
 </html>
-
