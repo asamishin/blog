@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>限定公開記事｜さみしんの旅日記</title>
+    <style>
+        /* ===== 共通スタイル ===== */
+        body { background-color: #eaf4e7; color: #333; font-family: "ヒラギノ角ゴ Pro W3", sans-serif; font-size: 14px; margin: 0; }
+        a { color: #2cb696; text-decoration: none; }
+        .service-bar { background: #333; color: #fff; padding: 8px 0; text-align: right; font-size: 12px; }
+        .blog-container { width: 980px; margin: 0 auto; }
+        .blog-header { height: 180px; background: #fff; border-bottom: 5px solid #2cb696; margin-bottom: 20px; position: relative; }
+        .blog-title { position: absolute; top: 60px; left: 30px; font-size: 28px; font-weight: bold; }
+        .main-column { width: 660px; background: #fff; padding: 30px; border: 1px solid #ddd; margin: 0 auto; }
+        /* 認証画面 */
+        .login-box { background: #f9f9f9; border: 1px solid #ccc; padding: 30px; margin: 50px auto; width: 400px; text-align: center; }
+        .login-title { background: #2cb696; color: #fff; padding: 10px; font-weight: bold; margin: -30px -30px 20px -30px; text-align: left; }
+        input { width: 90%; padding: 10px; margin-bottom: 10px; }
+        button { background: #2cb696; color: #fff; border: none; padding: 10px 30px; font-weight: bold; cursor: pointer; }
+        .error-msg { color: red; display: none; margin-top: 10px; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="service-bar"><span style="margin-right:20px;">Blog</span></div>
+    <div class="blog-container">
+        <header class="blog-header">
+            <div class="blog-title">さみしんの旅日記</div>
+        </header>
+
+        <div class="main-column">
+            <div id="login-view" class="login-box">
+                <div class="login-title">限定公開記事</div>
+                <p style="font-size:12px; text-align:left;">この記事は閲覧制限がかかっています。<br>合言葉を入力してください。</p>
+                <input type="text" id="passInput" placeholder="合言葉">
+                <br>
+                <button onclick="unlockContent()">読む</button>
+                <div class="error-msg" id="errorMsg">合言葉が違います</div>
+                <div style="margin-top:20px; font-size:12px;">
+                    <a href="entry-11774400.html">&laquo; 一覧へ戻る</a>
+                </div>
+            </div>
+
+            <div id="secret-content" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        async function unlockContent() {
+            var input = document.getElementById("passInput").value;
+            var errorMsg = document.getElementById("errorMsg");
+            if(!input) return;
+
+            // パスワードに対応するファイルを探す
+            var targetFile = input + ".html"; 
+
+            try {
+                const response = await fetch(targetFile);
+                if (response.ok) {
+                    const text = await response.text();
+                    document.getElementById("login-view").style.display = "none";
+                    var contentDiv = document.getElementById("secret-content");
+                    contentDiv.innerHTML = text;
+                    contentDiv.style.display = "block";
+                } else { throw new Error(); }
+            } catch (e) { errorMsg.style.display = "block"; }
+        }
+    </script>
+</body>
+</html>
