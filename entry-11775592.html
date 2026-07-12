@@ -255,8 +255,8 @@
         var passArea = document.getElementById('passwordArea');
         var secret = document.getElementById('secretContent');
 
-        // 合言葉の設定（momo）
-        if (input === 'momo') {
+        // 合言葉の設定（momo）大文字小文字の区別をなくすためtoLowerCase()で小文字化して比較
+        if (input.toLowerCase() === 'momo') {
             // 正解の場合：フォームを消して記事を表示
             passArea.style.display = 'none';
             secret.style.display = 'block';
